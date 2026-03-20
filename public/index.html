@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Webhook Protect</title>
+<style>
+body{background:#0f0f0f;color:#fff;font-family:sans-serif;text-align:center}
+.box{margin-top:100px}
+input{padding:10px;width:300px}
+button{padding:10px 20px;background:#00ffcc;border:0}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Protect Discord Webhook</h2>
+<input id="w" placeholder="paste webhook">
+<br><br>
+<button onclick="go()">PROTECT</button>
+<p id="out"></p>
+</div>
+
+<script>
+function go(){
+fetch("/api/create",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({webhook:document.getElementById("w").value})
+})
+.then(r=>r.json())
+.then(d=>{
+document.getElementById("out").innerText=d.url||"error"
+})
+}
+</script>
+</body>
+</html>
